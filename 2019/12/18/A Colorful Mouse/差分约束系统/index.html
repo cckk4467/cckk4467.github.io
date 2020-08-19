@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>差分约束系统 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="现学现记录，写了一道模板题就急躁的开blog了哈哈哈以下都是个人理解而写，因为是为记录下自己对知识的归纳，看不懂很正常#滑稽 什么是差分约束系统什么是差分约束系统？看一道号称是“差分裸题”的代码，你只会看到SPFA在有向图上跑了个最长或最短路没错，差分约束这个系统的本质就是SPFA（或者bellman-ford，但我不会，所以不写#滑稽）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="差分约束系统">
+<meta property="og:url" content="http://yoursite.com/2019/12/18/A%20Colorful%20Mouse/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="现学现记录，写了一道模板题就急躁的开blog了哈哈哈以下都是个人理解而写，因为是为记录下自己对知识的归纳，看不懂很正常#滑稽 什么是差分约束系统什么是差分约束系统？看一道号称是“差分裸题”的代码，你只会看到SPFA在有向图上跑了个最长或最短路没错，差分约束这个系统的本质就是SPFA（或者bellman-ford，但我不会，所以不写#滑稽）">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-12-18T11:28:40.000Z">
+<meta property="article:modified_time" content="2020-08-19T02:15:03.023Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ACM">
+<meta property="article:tag" content="ACM学习笔记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-A Colorful Mouse/差分约束系统" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/18/A%20Colorful%20Mouse/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time datetime="2019-12-18T11:28:40.000Z" itemprop="datePublished">2019-12-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/A-Colorful-Mouse/">A Colorful Mouse</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      差分约束系统
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现学现记录，写了一道模板题就急躁的开blog了哈哈哈<br>以下都是个人理解而写，因为是为记录下自己对知识的归纳，看不懂很正常#滑稽</p>
+<h1 id="什么是差分约束系统"><a href="#什么是差分约束系统" class="headerlink" title="什么是差分约束系统"></a>什么是差分约束系统</h1><p>什么是差分约束系统？<br>看一道号称是“差分裸题”的代码，你只会看到<br><strong>SPFA在有向图上跑了个最长或最短路</strong><br>没错，差分约束这个系统的本质就是SPFA（或者bellman-ford，但我不会，所以不写#滑稽）</p>
+<a id="more"></a>
+<p>就没了？怎么可能。。。<br>严格上来说（我的理解）<strong>差分约束系统=对某个问题进行建模+跑一遍SPFA(bellman-ford)**，我们要的结果就是最短路数组dis<br>所以，</strong>它的核心问题也是它的难点就是把某个问题建模成图**，然后用简简单单的最长短路（不能dijskra）解决</p>
+<h1 id="所以对什么核心问题建模呢呢？"><a href="#所以对什么核心问题建模呢呢？" class="headerlink" title="所以对什么核心问题建模呢呢？"></a>所以对什么核心问题建模呢呢？</h1><h2 id="差分约束就是解决这个问题（后称原问题）"><a href="#差分约束就是解决这个问题（后称原问题）" class="headerlink" title="差分约束就是解决这个问题（后称原问题）"></a>差分约束就是解决这个问题（后称原问题）</h2><p>想象你有n个未知数 $ X_n $<br>再想象m个不等式，对上面的未知数进行约束，形式<strong>全为</strong></p>
+<ol>
+<li><strong>$ X_i-X_j\leq C$ (C为常数)</strong></li>
+<li><strong>$ X_i-X_j\geq C$ (C为常数)</strong></li>
+</ol>
+<p>找到一组解，满足上面的所有约束。</p>
+<p>注意，因为这是不等式约束，所以<strong>任意的解同时加任何常数后得到的同样是合法解</strong>，看得出来我们关心的是<strong>未知数的相对关系</strong>。</p>
+<p>换句话说，更进一步的，我们关心的是下面两个确切的问题</p>
+<ul>
+<li>若不等式为形式1，找到一组使得每个约束中 $ X_i-X_j $ <strong>最大</strong>的解，这个解是唯一的（<strong>原问题1</strong>）（?）</li>
+<li>若不等式为形式2，找到一组使得每个约束中 $ X_i-X_j $ <strong>最小</strong>的解，这个解是唯一的（<strong>原问题2</strong>）（?）</li>
+</ul>
+<p>好了，这就是抽象出来的问题。<br>我知道你可能会觉得，这的问题还是很奇怪啊，没有题目会直接问你这个这么抽象的问题吧。</p>
+<p>确实，在讨论怎么解决这个抽象的问题前，我们还要知道怎样从实际题目中<strong>转换</strong>成这个问题。</p>
+<h2 id="从题目中提取出这个问题"><a href="#从题目中提取出这个问题" class="headerlink" title="从题目中提取出这个问题"></a>从题目中提取出这个问题</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1250">洛谷</a></p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>一条街的一边有几座房子。因为环保原因居民想要在路边种些树。路边的地区被分割成块，并被编号成1..N。每个部分为一个单位尺寸大小并最多可种一棵树。每个居民想在门前种些树并指定了三个号码B，E，T。这三个数表示该居民想在B和E之间最少种T棵树。当然，B≤E，居民必须记住在指定区不能种多于区域地块数的树，所以T≤E-B+l。居民们想种树的各自区域可以交叉。你的任务是求出能满足所有要求的最少的树的数量。</p>
+<p>写一个程序完成以下工作：</p>
+<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行包含数据N，区域的个数(0&lt;N≤30000)；</p>
+<p>第二行包含H，房子的数目(0&lt;H≤5000)；</p>
+<p>下面的H行描述居民们的需要：B E T，0&lt;B≤E≤30000，T≤E-B+1。</p>
+<p>##输出格式<br>输出文件只有一行写有树的数目</p>
+<h2 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h2><h4 id="输入-1"><a href="#输入-1" class="headerlink" title="输入 #1"></a>输入 #1</h4><p>9<br>4<br>1 4 2<br>4 6 2<br>8 9 2<br>3 5 2</p>
+<h4 id="输出-1"><a href="#输出-1" class="headerlink" title="输出 #1"></a>输出 #1</h4><p>5</p>
+<p>有没有感受到不等关系式子在挑逗你的灵魂#huaji<br>把sum[i] (1到n的种树量，即前缀和)看成未知数<br>把居民们的要求看成是不等式约束即可！<br>当然还有几个潜规则–由于sum的性质，还要另加以下约束<br> $$0\leq sum[i]-sum[i-1] \leq 1$$ </p>
+<p>我们要求啥来着，噢对，<strong>“最少的树的数量”</strong><br>那对每一个村民的要求，在满足的基础上尽可能少就好了<br>即若某居民要求的区间为[i,j]，则sum[j]-sum[i-1]为要种是数，我们要<br> $$ sum[j]-sum[i-1]\geq 居民对[i,j]区间的要求 $$<br>这个，不就是<strong>原问题2</strong>吗？</p>
+<p>当然，我们还要考虑其他的限制 $$0\leq sum[i]-sum[i-1] \leq 1$$ </p>
+<p>#建模！<br>我们已经抽象出来这些问题了，剩下就是差分约束的事情了！<br>（还记得 <strong>差分约束系统=对原问题进行建模+跑一遍SPFA(bellman-ford)</strong> 吗？）</p>
+<p>建模的过程，就是<strong>建边</strong></p>
+<ol>
+<li><p>首先，按照原问题2的模式，把不等式<strong>通通化为$ X_i-X_j\geq C$ (C为常数)</strong> 形式</p>
+</li>
+<li><p><strong>从 $ X_j $ 连一条到 $ X_i $ 权值为C的边</strong></p>
+</li>
+<li><p>因为是连通图(否则连超源)，所以从结点0跑一遍SPFA最<strong>长</strong>路径。</p>
+</li>
+<li><p>dis数组保存的就是对应的 $ X_i $ 了，即sum[i]啦。想想sum的含义：在满足约束条件下sum[j]-sum[i-1]尽量小，sum性质是非递减数列，然后在满足要求的情况下已经尽可能增长的很慢了。所以！答案就是sum[n]-sum[0]，区间总树！</p>
+</li>
+</ol>
+<h1 id="建模框架总结"><a href="#建模框架总结" class="headerlink" title="建模框架总结"></a>建模框架总结</h1><p>（其实我只想写这部分的。。。其他部分太难（lfsj）了）</p>
+<h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><ol>
+<li><p><strong>抽象原问题</strong>，变量是什么有哪些，约束是什么有哪些</p>
+</li>
+<li><p>确定是原问题1还是2（不等式符号不一样可以两边乘个-1变号）<br>对于 <strong>$ X_i-X_j\leq C$ (C为常数)</strong> ，差分约束会尽量拉大 $ X_i $ 和 $ X_j $ 的距离，即尽量使等式逼近等号<br>对于 <strong>$ X_i-X_j\geq C$ (C为常数)</strong> ，则会缩小距离，也是尽量逼近等号</p>
+</li>
+<li><p>SFPA(Bellman-ford)<br>原问题1要跑最短路<br>原问题2要跑最长路</p>
+</li>
+</ol>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><ol>
+<li>对于 <strong>$ X_i-X_j= C $ (C为常数)</strong> 的约束，可以正反连一条C</li>
+</ol>
+<h1 id="数学证明（无）"><a href="#数学证明（无）" class="headerlink" title="数学证明（无）"></a>数学证明（无）</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/18/A%20Colorful%20Mouse/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/" data-id="cke0x6gd1000vnocke5wo0ilh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">ACM学习笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/19/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/12/11/A%20Colorful%20Mouse/%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95Ovo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">图论基础知识Ovo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/A-Colorful-Mouse/">A Colorful Mouse</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/">建blog日记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/A-Colorful-Mouse/" rel="tag">A Colorful Mouse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">ACM学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM%E9%A2%98%E7%9B%AE/" rel="tag">ACM题目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/" rel="tag">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Way%E7%B3%BB%E5%88%97/" rel="tag">The Way系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88DP%EF%BC%89/" rel="tag">动态规划（DP）</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/" rel="tag">建blog日记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%84%9F%E6%82%9F%E5%92%8C%E6%80%9D%E8%80%83/" rel="tag">感悟和思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6%EF%BC%88plugin%EF%BC%89/" rel="tag">插件（plugin）</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" rel="tag">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E8%AE%B0/" rel="tag">游记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8BDP/" rel="tag">状压DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0/" rel="tag">素数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0%E5%8F%8A%E7%AE%97%E6%95%B0%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86/" rel="tag">素数及算数基本定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8E%AB%E9%98%9F/" rel="tag">莫队</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/A-Colorful-Mouse/" style="font-size: 10px;">A Colorful Mouse</a> <a href="/tags/ACM/" style="font-size: 20px;">ACM</a> <a href="/tags/ACM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 18px;">ACM学习笔记</a> <a href="/tags/ACM%E9%A2%98%E7%9B%AE/" style="font-size: 16px;">ACM题目</a> <a href="/tags/C/" style="font-size: 12px;">C++</a> <a href="/tags/LCA/" style="font-size: 10px;">LCA</a> <a href="/tags/The-Way%E7%B3%BB%E5%88%97/" style="font-size: 10px;">The Way系列</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88DP%EF%BC%89/" style="font-size: 10px;">动态规划（DP）</a> <a href="/tags/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/" style="font-size: 16px;">建blog日记</a> <a href="/tags/%E6%84%9F%E6%82%9F%E5%92%8C%E6%80%9D%E8%80%83/" style="font-size: 10px;">感悟和思考</a> <a href="/tags/%E6%8F%92%E4%BB%B6%EF%BC%88plugin%EF%BC%89/" style="font-size: 10px;">插件（plugin）</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 14px;">数论</a> <a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" style="font-size: 10px;">树状数组</a> <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="font-size: 10px;">游记</a> <a href="/tags/%E7%8A%B6%E5%8E%8BDP/" style="font-size: 10px;">状压DP</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12px;">离散化</a> <a href="/tags/%E7%B4%A0%E6%95%B0/" style="font-size: 10px;">素数</a> <a href="/tags/%E7%B4%A0%E6%95%B0%E5%8F%8A%E7%AE%97%E6%95%B0%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86/" style="font-size: 10px;">素数及算数基本定理</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 10px;">线段树</a> <a href="/tags/%E8%8E%AB%E9%98%9F/" style="font-size: 12px;">莫队</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/18/A%20Colorful%20Mouse/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/">差分约束系统</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/11/A%20Colorful%20Mouse/%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95Ovo/">图论基础知识Ovo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/18/A%20Colorful%20Mouse/%E6%AC%A7%E6%8B%89%E7%AD%9B(%E4%B8%80%E9%81%93%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%A8%A1%E6%9D%BF%E9%A2%98/">欧拉筛ovo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/A%20Colorful%20Mouse/%E9%A2%98%E7%9B%AE-%E6%B4%9B%E8%B0%B7P4427%E3%80%90BJOI2018%E3%80%91%E6%B1%82%E5%92%8C/">题目-洛谷P4427【BJOI2018】求和</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

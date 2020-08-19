@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>小数与float | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="十进制小数转换为二进制数的两种理解qwqOIer们还记得它们互相转化的算法吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小数与float">
+<meta property="og:url" content="http://yoursite.com/2019/07/08/A%20Colorful%20Mouse/%E5%B0%8F%E6%95%B0%E4%B8%8Efloat/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="十进制小数转换为二进制数的两种理解qwqOIer们还记得它们互相转化的算法吧">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-08T13:29:00.000Z">
+<meta property="article:modified_time" content="2020-08-19T02:15:03.020Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-A Colorful Mouse/小数与float" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/08/A%20Colorful%20Mouse/%E5%B0%8F%E6%95%B0%E4%B8%8Efloat/" class="article-date">
+  <time datetime="2019-07-08T13:29:00.000Z" itemprop="datePublished">2019-07-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/A-Colorful-Mouse/">A Colorful Mouse</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      小数与float
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="十进制小数转换为二进制数的两种理解qwq"><a href="#十进制小数转换为二进制数的两种理解qwq" class="headerlink" title="十进制小数转换为二进制数的两种理解qwq"></a><strong>十进制小数转换为二进制数的两种理解qwq</strong></h3><p>OIer们还记得它们互相转化的算法吧</p>
+<a id="more"></a>
+<ul>
+<li><p><strong>二进制转十进制</strong>：<br>  对二进制小数点后的每一位n，若此位置为1，则加上$2^{-n}$<br>  累加得到十进制结果。如： </p>
+  
+<p>  结果就为 </p>
+  </li>
+<li><p><strong>十进制转二进制</strong>：<br>  对整数和小数部分分开来转话，整数部分就不说啦。对小数部分，乘以2，取新数的整数部分，然后对新数的小数部分重复此操作，直到新数小数部分为零或到达精度上限<br>  比如：3.875（10）  整数3(10) =&gt;11(2)</p>
+<pre><code>  小数部分    
+  ==0.875 乘以2 =&gt;1.750 取1==
+  ==0.750 乘以2 =&gt;1.500 取1==
+  ==0.500 乘以2 =&gt;1.000 取1==</code></pre>
+<p>  按先后顺序依次成为二进制数小数点后的第一位、第二位、第三位……<br>   所以3.875（10）=11.111（2）</p>
+<h4 id="怎么理解十进制转二进制呢"><a href="#怎么理解十进制转二进制呢" class="headerlink" title="怎么理解十进制转二进制呢"></a><strong>怎么理解十进制转二进制呢</strong></h4><ol>
+<li><p><strong>实体蛋糕</strong><br> 我们不妨将“1”看成一块蛋糕，0.5就是一半的蛋糕，等价于二进制的0.1 </p>
+ 
+ 
+<p> 相应的<br> 二进制 <strong>0.01</strong>  = 十进制<strong>0.25</strong>为四分之一的蛋糕<br> 二进制 <strong>0.001</strong>  = 十进制<strong>0.125</strong>为八分之一的蛋糕<br> 二进制 <strong>0.0001</strong>  = 十进制<strong>0.0625</strong>为十六分之一的蛋糕<br> <strong>……</strong><br> 我们把正方形切一半，再对其中一半再切一半，再对这切出的图形再切一半……<br> 最后变成了这样 </p>
+ 
+<p> 每一位二进制小数对应的部分如图</p>
+ 
+ 
+<p> 若该位为1则取这部分图形否则不取。</p>
+<hr>
+<p> 现在我们照这样的方式对这块蛋糕切啊切，切分成无数块，第一块有一半大，以后每一块是前一块的二分之一。<br> 稍加思考可以发现<strong>我想要的任意大小蛋糕都可以通过取舍不同的块数来达到或无限近似达到</strong>。<br> <strong>但我该选哪些蛋糕块呢？</strong><br> 首先想到的是贪心，比如我要0.618块蛋糕，先挑最大的0.5，嗯合适，还要再选0.118，发现第二个0.25和第三个0.125过大了，于是挑第四个0.0625。看看剩下多少，0.0555，继续往下挑。</p>
+</li>
+<li><p><strong>数学上简单粗暴的理解</strong><br> 我们要转化一个整数位为零的十进制数，，对于它的二进制数，整数位也一定为零。<br> 此时我们把这个数翻倍，对于它的二进制数，根据二进制数的性质，其实是小数点右移一位。<br> 这样，它的二进制数小数点后第一位就变成整数位了，这个整数位要么是1要么是0（二进制数嘛）<br> 若是1，那这个十进制数整数必然也是1，若是0则必然是0，。因此通过看十进制的整数是1是0，我们就知道了小数点后第一个数是1还是0，再不断重复这个方法来知道后续的二进制数。<br> 比如：<br> 0.625（10）=0.101（2）<br> ×2    1.250（10）=1.010（2）取1<br> ×2     0.500（10）=0.100（2）取0    （每次去掉整数部分再×2，可以发现二进制数小数点每次右移一位）<br> ×2      1.000（10）=1.000（2）取1<br> 结果就是0.101</p>
+<p>正因为有这样的转化问题，导致很多有限十进制小数对应到二进制就变成无限小数了。而下面说的float类型保存的只能是二进制，因此很多十进制小数只能近似储存，产生精度问题</p>
+<h4 id="Float与double是怎么储存小数的"><a href="#Float与double是怎么储存小数的" class="headerlink" title="Float与double是怎么储存小数的"></a><strong>Float与double是怎么储存小数的</strong></h4><p>有了二进制小数后，我们要把他储存在float或者double里面，它们是怎么储存二进制小数的呢。<br>我们先来看看float。<br>比如我要储存1101.011011（即十进制的13.421875）<br>先写成科学计数法1.101011011 x 2^3</p>
+</li>
+</ol>
+<p>  <strong>.101011011</strong>  部分我们称为尾数<br>  <strong>3</strong>           称为指数</p>
+<p>  Spoil alert : 没错，浮点数都是以指数形式被保存的<br>  Float中的格式为<strong>SEEE EEEE EMMM MMMM MMMM MMMM MMMM MMMM</strong><br>  第一位S的符号位<br>  接下来一个字节（8bit）是指数位，这里注意，因为指数可正可负，所以IEEE规定，这里算出来的值减去127才是真正的指数。比如某个float变量2-9位（也就是E的位置）为1000 0001，十进制数为129，再减去127得2，所以它的指数为2。</p>
+<p>  M的部分着对应尾数部分（因为是科学计数法，小数点前面一定只有一个数1，这个是默认的了），多余的位补零</p>
+<p>  所以，13.421875在float保存为0100 0001 0101 0110 1100 0000 0000 0000<br>  拆开float 4个字节验证下~</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">float</span> a = <span class="number">13.421875</span>;</span><br><span class="line">    <span class="keyword">char</span> *b;</span><br><span class="line">    b = (<span class="keyword">char</span>*)&amp;a;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; (<span class="keyword">short</span>)b[i] &lt;&lt; <span class="string">&quot; &quot;</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  输出：    0 -64 86 65（由于是小端模式保存，故高位数字保存在高位地址）<br>  十进制结果对应二进制数字，验证完成。</p>
+<h4 id="简谈精度问题"><a href="#简谈精度问题" class="headerlink" title="简谈精度问题"></a><strong>简谈精度问题</strong></h4><p>  对于float，因为尾数位只有23位，通过计算精度大致在6-7位这样子（整数+小数部分）所以听low的<br>  float毕竟小啊，如果需求没有那么大，就用float吧</p>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysocean/p/7513061.html">https://www.cnblogs.com/ysocean/p/7513061.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaojianliu/p/9835972.html">https://www.cnblogs.com/xiaojianliu/p/9835972.html</a></p>
+<p><strong>PS:#调了半天插件语法打错还行</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/08/A%20Colorful%20Mouse/%E5%B0%8F%E6%95%B0%E4%B8%8Efloat/" data-id="cke0x6gcz000pnock3n5a83or" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/09/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/%E9%9B%B6%E9%9B%B6%E7%A2%8E%E7%A2%8E%E7%9A%84%E5%90%84%E7%A7%8D%E5%AE%9E%E7%94%A8%E8%AF%AD%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          零零碎碎的各种实用语法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/08/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6%EF%BC%88comment-plugin%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">评论插件（comment-plugin）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/A-Colorful-Mouse/">A Colorful Mouse</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/">建blog日记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/A-Colorful-Mouse/" rel="tag">A Colorful Mouse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">ACM学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM%E9%A2%98%E7%9B%AE/" rel="tag">ACM题目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/" rel="tag">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Way%E7%B3%BB%E5%88%97/" rel="tag">The Way系列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88DP%EF%BC%89/" rel="tag">动态规划（DP）</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/" rel="tag">建blog日记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%84%9F%E6%82%9F%E5%92%8C%E6%80%9D%E8%80%83/" rel="tag">感悟和思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6%EF%BC%88plugin%EF%BC%89/" rel="tag">插件（plugin）</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" rel="tag">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E8%AE%B0/" rel="tag">游记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8BDP/" rel="tag">状压DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0/" rel="tag">素数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A0%E6%95%B0%E5%8F%8A%E7%AE%97%E6%95%B0%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86/" rel="tag">素数及算数基本定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8E%AB%E9%98%9F/" rel="tag">莫队</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/A-Colorful-Mouse/" style="font-size: 10px;">A Colorful Mouse</a> <a href="/tags/ACM/" style="font-size: 20px;">ACM</a> <a href="/tags/ACM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 18px;">ACM学习笔记</a> <a href="/tags/ACM%E9%A2%98%E7%9B%AE/" style="font-size: 16px;">ACM题目</a> <a href="/tags/C/" style="font-size: 12px;">C++</a> <a href="/tags/LCA/" style="font-size: 10px;">LCA</a> <a href="/tags/The-Way%E7%B3%BB%E5%88%97/" style="font-size: 10px;">The Way系列</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88DP%EF%BC%89/" style="font-size: 10px;">动态规划（DP）</a> <a href="/tags/%E5%BB%BAblog%E6%97%A5%E8%AE%B0/" style="font-size: 16px;">建blog日记</a> <a href="/tags/%E6%84%9F%E6%82%9F%E5%92%8C%E6%80%9D%E8%80%83/" style="font-size: 10px;">感悟和思考</a> <a href="/tags/%E6%8F%92%E4%BB%B6%EF%BC%88plugin%EF%BC%89/" style="font-size: 10px;">插件（plugin）</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 14px;">数论</a> <a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" style="font-size: 10px;">树状数组</a> <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="font-size: 10px;">游记</a> <a href="/tags/%E7%8A%B6%E5%8E%8BDP/" style="font-size: 10px;">状压DP</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12px;">离散化</a> <a href="/tags/%E7%B4%A0%E6%95%B0/" style="font-size: 10px;">素数</a> <a href="/tags/%E7%B4%A0%E6%95%B0%E5%8F%8A%E7%AE%97%E6%95%B0%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86/" style="font-size: 10px;">素数及算数基本定理</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 10px;">线段树</a> <a href="/tags/%E8%8E%AB%E9%98%9F/" style="font-size: 12px;">莫队</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/18/A%20Colorful%20Mouse/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/">差分约束系统</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/11/A%20Colorful%20Mouse/%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95Ovo/">图论基础知识Ovo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/18/A%20Colorful%20Mouse/%E6%AC%A7%E6%8B%89%E7%AD%9B(%E4%B8%80%E9%81%93%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%A8%A1%E6%9D%BF%E9%A2%98/">欧拉筛ovo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/08/A%20Colorful%20Mouse/%E9%A2%98%E7%9B%AE-%E6%B4%9B%E8%B0%B7P4427%E3%80%90BJOI2018%E3%80%91%E6%B1%82%E5%92%8C/">题目-洛谷P4427【BJOI2018】求和</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
